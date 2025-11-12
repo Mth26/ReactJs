@@ -1,0 +1,184 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* fin du reset CSS */
+
+
+#logo {
+    width: 5%;
+    height: auto;
+    margin: 25px;   
+    position: absolute;
+}
+
+#RESERVATIONS:hover {
+    background-color: #634821;
+    color: #faf2ed;
+    transition: 0.3s;
+}
+
+#RESERVATIONS {
+  position: absolute;
+  top: 6%;
+  right: 6%;
+  padding: 10px 20px;
+  background-color:color #faf2ed;
+    color: #634821;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+
+    /* Side Nav CSS */
+    #btnBurger {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 30px;
+        height: 25px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+    #side-nav {
+        height: 100%;
+        width: 250px;
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: #004232;
+        padding-top: 60px;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        transform: translateX(100%);
+        transition: transform 0.4s ease-out;
+    }
+
+    #side-nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    #side-nav ul li {
+        padding: 15px 20px;
+        border-bottom: 1px solid #006644;
+    }
+    #side-nav ul li a {
+        color: #faf2ed;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+    }
+
+    
+body {
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+}
+
+
+.parent-title {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+#bowl {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: -85px;
+    left: 0;
+    z-index: -1;
+    text-decoration: none;
+    
+}
+
+#titre {
+    width: 40%;
+    height: auto;
+    position:absolute;
+    z-index: 1;
+    left: 30%;
+    top: 45%;
+    filter: brightness(0) 
+    saturate(100%) 
+    invert(96%) 
+    sepia(2%) 
+    saturate(1264%) 
+    hue-rotate(326deg) 
+    brightness(102%) 
+    contrast(96%) 
+    drop-shadow(0px 0px 10px black);
+}
+
+#slogan {
+    width: 30%;
+    height: auto;
+    left: 58%;
+    top: 28%;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2em;
+    text-shadow: 2px 2px 4px #000000;
+    font-family: 'times-new-roman';
+    text-transform: initial;
+    margin: auto;
+    position: absolute;
+    color: #faf2ed;
+    max-width:350px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+#description {
+    width: 800px;
+    height: auto;
+    margin: auto;
+    padding-bottom: 100px;
+
+    }

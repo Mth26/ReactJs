@@ -1,0 +1,69 @@
+/* les détails avancés du  css ont été fait par IA  */
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root{
+  --bg-start: #1e3c72;
+  --bg-end: #2a5298;
+  --panel: rgba(255,255,255,0.08);
+  --grass-1: #6aa84f; 
+  --grass-2: #5a9642; 
+  --snake: #2ecc71;
+  --snake-head: #27ae60;
+  --food: #ffd700;
+  --accent: #764ba2;
+  --text: #ffffff;
+  --square-size: 34px; }
+
+body{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg,var(--bg-start),var(--bg-end)); color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:18px; }
+
+.container{ background:var(--panel); padding:18px; border-radius:12px; width:340px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+.title{ font-size:2rem; font-weight:700; }
+.score-container{ background:rgba(0,0,0,0.25); padding:8px 20px; border-radius:8px; }
+.score-value{ color:var(--food); font-weight:700; font-size:1.8rem; }
+
+.grid{ border:3px solid #274a12; border-radius:8px; overflow:hidden; }
+.row{ display:flex; }
+.square{ width:var(--square-size); height:var(--square-size); transition:background 0.08s; background:var(--grass-1); }
+
+.row:nth-child(odd) .square:nth-child(odd),
+.row:nth-child(even) .square:nth-child(even){ background:var(--grass-1); }
+.row:nth-child(odd) .square:nth-child(even),
+.row:nth-child(even) .square:nth-child(odd){ background:var(--grass-2); }
+
+.square.snake{
+  background: var(--snake) !important;
+  border-radius: 4px;
+  border: 2px solid #1e7a3e;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25), inset 0 1px 2px rgba(255,255,255,0.05);
+  opacity: 1;
+}
+.square.head{
+  position:relative;
+  background: var(--snake-head) !important;
+  border: 2px solid #166836 !important;
+}
+.square.head::before, .square.head::after{
+  content:'';
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:#fff;
+  border-radius:50%;
+  top:8px;
+  border:1px solid #000;
+}
+.square.head::before{ left:6px; } .square.head::after{ right:6px; }
+.square.food{
+  background: var(--food) !important;
+  border-radius:50%;
+  box-shadow: 0 0 12px rgba(255,215,0,0.9);
+  width: calc(var(--square-size) - 6px);
+  height: calc(var(--square-size) - 6px);
+  margin: 3px;
+}
+
+.restart-btn{ background:var(--accent); color:#fff; border:none; padding:10px 26px; border-radius:22px; cursor:pointer; }
+.instructions{ font-size:0.95rem; background:rgba(0,0,0,0.18); padding:8px 12px; border-radius:8px; }
+.message{ margin-top:10px; padding:10px 14px; background:rgba(0,0,0,0.18); border-radius:10px; font-weight:700; }
+.message.hidden{ display:none; }
