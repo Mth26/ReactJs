@@ -1,0 +1,270 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #74b9ff, #0984e3);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.8s ease;
+  padding: 20px;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  backdrop-filter: blur(10px);
+}
+
+header h1 {
+  color: #2d3436;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+
+.search-section {
+  margin-bottom: 2rem;
+}
+
+.city-input {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 1.1rem;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  outline: none;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.city-input:focus {
+  border-color: #74b9ff;
+  box-shadow: 0 0 10px rgba(116, 185, 255, 0.3);
+}
+
+.search-btn,
+.location-btn {
+  background: #74b9ff;
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  font-size: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 0.5rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.search-btn:hover,
+.location-btn:hover {
+  background: #0984e3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(116, 185, 255, 0.4);
+}
+
+.loader {
+  margin: 2rem 0;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #74b9ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.weather-card {
+  background: linear-gradient(135deg, #fff, #f8f9fa);
+  border-radius: 20px;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.weather-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+
+.forecast-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #ddd;
+}
+
+.forecast-section h3 {
+  color: #2d3436;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+
+.forecast-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.forecast-card {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 15px;
+  padding: 1rem;
+  flex: 1;
+  min-width: 80px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.forecast-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.forecast-day {
+  font-size: 0.9rem;
+  color: #636e72;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+
+.forecast-emoji {
+  font-size: 2.5rem;
+  margin: 0.5rem 0;
+}
+
+.forecast-temp {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0984e3;
+  margin-top: 0.5rem;
+}
+
+.history-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #ddd;
+}
+
+.history-section h3 {
+  color: #2d3436;
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+.history-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.history-btn {
+  background: #00b894;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.history-btn:hover {
+  background: #00a085;
+  transform: scale(1.05);
+}
+
+.hidden {
+  display: none;
+}
+
+.error {
+  background: #e17055;
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  margin: 1rem 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.weather-card.show {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .weather-emoji {
+    font-size: 3rem;
+  }
+
+  .temperature {
+    font-size: 2.5rem;
+  }
+
+  .forecast-container {
+    gap: 0.3rem;
+  }
+
+  .forecast-card {
+    min-width: 70px;
+    padding: 0.8rem;
+  }
+
+  .forecast-emoji {
+    font-size: 2rem;
+  }
+
+  .forecast-temp {
+    font-size: 1rem;
+  }
+}
