@@ -1,9 +1,12 @@
+import Keyboard from "./Keyboard";
+import WordDisplay from "./WordDisplay";
 
 
 export default function Game() {
     return (
         <div>
-            <p>Game</p>
+           <WordDisplay letters={[]} />
+           <Keyboard onSelectLetter={() => {}} playedLetters={[]} />
         </div>
     );
 }
