@@ -1,0 +1,185 @@
+TP : Migration du projet Weather App en TypeScript
+Contexte
+Dans ce TP, vous allez migrer l’application météo que vous avez développée en JavaScript vers TypeScript.
+L’objectif est d’introduire les principes de typage statique, de structuration du code et de compilation vers JavaScript.
+
+Le rendu visuel et le comportement doivent rester identiques, mais le code doit désormais être entièrement écrit en TypeScript.
+
+Objectifs pédagogiques
+Comprendre les différences entre JavaScript et TypeScript.
+Installer et configurer un projet TypeScript.
+Définir des types et des interfaces pour les données issues de l’API.
+Utiliser les types pour sécuriser le code (paramètres, retours de fonctions, variables).
+Compiler le projet en JavaScript et l’exécuter dans le navigateur.
+Étape 1 — Initialisation du projet TypeScript
+Créer un nouveau dossier weather-ts.
+
+Copier vos fichiers HTML et CSS depuis le TP JavaScript précédent.
+
+Créer un fichier main.ts à la place du fichier script.js.
+
+Installer TypeScript :
+
+npm init -y
+npm install typescript --save-dev
+Générer le fichier de configuration TypeScript :
+
+npx tsc --init
+Vérifier les options suivantes dans tsconfig.json :
+{
+  "target": "ES6",
+  "module": "ES6",
+  "strict": true,
+  "outDir": "./dist",
+  "rootDir": "./src",
+  "noImplicitAny": true
+}
+Organiser vos fichiers comme suit :
+src/ main.ts dist/ main.js index.html style.css
+
+Modifier la balise script dans index.html :
+<script type="module" src="./dist/main.js"></script>
+Étape 2 — Typage de base
+Ajouter des types explicites pour toutes les variables récupérées via document.getElementById.
+Exemple :
+
+const cityInput = document.getElementById("city-input") as HTMLInputElement;
+const resultCard = document.getElementById("result") as HTMLElement;
+const searchBtn = document.getElementById("search-btn") as HTMLButtonElement;
+const geoBtn = document.getElementById("geo-btn") as HTMLButtonElement;
+const resultTemp = document.getElementById("temp") as HTMLElement;
+const resultCity = document.getElementById("city-name") as HTMLElement;
+const resultEmoji = document.getElementById("emoji") as HTMLElement;
+Typer toutes les fonctions (paramètres et valeurs de retour).
+Exemple :
+
+const getWeatherEmoji = (weather: string): string => {
+  const w = weather.toLowerCase();
+  if (w.includes("cloud")) return "cloud";
+  if (w.includes("rain")) return "rain";
+  if (w.includes("storm")) return "storm";
+  if (w.includes("snow")) return "snow";
+  if (w.includes("clear")) return "clear";
+  if (w.includes("mist") || w.includes("fog")) return "mist";
+  return "other";
+};
+Éviter toute utilisation du type any (et activer noImplicitAny dans tsconfig.json).
+
+Étape 3 — Interface pour les données météo
+Créer une interface décrivant les données utiles extraites de l’API :
+interface WeatherData {
+  city: string;
+  temperature: number;
+  weather: string;
+}
+Adapter la fonction de récupération de météo pour retourner un Promise :
+const getWeatherByCity = async (city: string): Promise<WeatherData> => {
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
+    city
+  )}&appid=${API_KEY}&lang=fr&units=metric`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("Erreur lors de la récupération de la météo");
+  }
+
+  const res = await response.json();
+
+  return {
+    city: res.name,
+    temperature: res.main.temp,
+    weather: res.weather[0].main
+  };
+};
+Faire de même pour la fonction qui récupère la météo à partir des coordonnées (latitude, longitude) si vous utilisez la géolocalisation.
+Étape 4 — Factorisation et séparation logique
+Créer un dossier src/utils.
+
+Déplacer dans des fichiers séparés :
+
+api.ts pour les appels API (fonctions getWeatherByCity, getWeatherByCoords, interface WeatherData).
+
+dom.ts pour la manipulation du DOM (mise à jour de la carte, gestion des classes, etc.).
+
+storage.ts pour les fonctions liées à l’historique (loadHistoryFromStorage, saveHistoryToStorage, etc.).
+
+Utiliser export et import pour organiser le code.
+Exemple :
+
+// api.ts
+export interface WeatherData {
+  city: string;
+  temperature: number;
+  weather: string;
+}
+
+export const getWeatherByCity = async (city: string): Promise<WeatherData> => {
+  // ...
+};
+// main.ts
+import { getWeatherByCity, WeatherData } from "./utils/api";
+Vérifier que la compilation fonctionne toujours et que le comportement de l’application est inchangé.
+Étape 5 — Compilation et tests
+Compiler le projet :
+npx tsc
+Lancer un LiveServer, puis dans le navigateur vérifier :
+la recherche par ville,
+
+la géolocalisation (si vous l’avez implémentée),
+
+l’affichage du loader,
+
+l’historique des recherches.
+
+Corriger les erreurs indiquées par TypeScript jusqu’à ce que la compilation se fasse sans erreur.
+
+Étape 6 — Améliorations facultatives
+Ajouter une énumération pour typer les conditions météo :
+enum WeatherCondition {
+  Clear = "clear",
+  Rain = "rain",
+  Cloud = "cloud",
+  Snow = "snow",
+  Mist = "mist",
+  Other = "other"
+}
+Adapter ensuite getWeatherEmoji pour qu’elle retourne un WeatherCondition au lieu d’une simple chaîne.
+Taper explicitement les événements.
+
+Exemple pour la touche Entrée :
+
+document.addEventListener("keydown", (event: KeyboardEvent) => {
+  if (event.code === "Enter") {
+    searchByCityName();
+  }
+});
+Gérer les erreurs avec des objets Error typés et des blocs try/catch :
+
+try {
+  const weather = await getWeatherByCity(city);
+  // ...
+} catch (error) {
+  if (error instanceof Error) {
+    console.error(error.message);
+  }
+}
+Étape 7 — Validation
+Le TP est considéré comme terminé lorsque :
+
+le projet compile sans avertissement TypeScript,
+
+le dossier dist contient uniquement des fichiers JavaScript générés à partir de TypeScript,
+
+Aucun type any implicite n’est utilisé,
+
+Le comportement de l’application est identique à la version JavaScript (même fonctionnalités, mêmes interactions).
+
+Rendu attendu
+Un projet complet dans un dossier weather-ts.
+
+Le code source TypeScript dans le dossier src.
+
+Le code JavaScript généré dans le dossier dist.
+
+L’application doit fonctionner en ouvrant simplement index.html dans un navigateur.

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌦 Emoji Weather App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🌦 Météo Emoji</h1>
+      </header>
+
+      <div class="search-section">
+        <input
+          type="text"
+          id="cityInput"
+          placeholder="Entrez le nom d'une ville..."
+          class="city-input"
+        />
+        <button id="searchBtn" class="search-btn">🔍 Rechercher</button>
+        <button id="locationBtn" class="location-btn">🌍 Autour de moi</button>
+      </div>
+
+      <div id="loader" class="loader hidden">
+        <div class="spinner"></div>
+        <p>Chargement...</p>
+      </div>
+
+      <div id="weatherCard" class="weather-card hidden">
+        <div class="weather-content">
+          <h2 id="cityName" class="city-name"></h2>
+          <div id="weatherEmoji" class="weather-emoji">🌤</div>
+          <div id="temperature" class="temperature"></div>
+          <div id="description" class="description"></div>
+        </div>
+      </div>
+
+      <div id="forecastSection" class="forecast-section hidden">
+        <h3>📅 Prévisions sur 5 jours</h3>
+        <div id="forecastCards" class="forecast-container"></div>
+      </div>
+
+      <div id="historySection" class="history-section hidden">
+        <h3>Historique des recherches</h3>
+        <div id="historyButtons" class="history-buttons"></div>
+      </div>
+    </div>
+
+    <script type="module" src="./dist/main.js"></script>
+  </body>
+</html>
