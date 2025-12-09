@@ -6,11 +6,25 @@ interface HangmanProps {
 }
 
 const HangmanDisplay: React.FC<HangmanProps> = ({ errors, maxErrors }) => { //recoit les deux props de Game.tsx
+    // Chaque partie du corps apparaît après une erreur
     const parts = ['🙃', '👕', '🦵', '🦵', '🤛', '🤜'];
+
+    // On prend seulement les X premières parties (selon le nombre d'erreurs)
     const shownParts = parts.slice(0, errors);
+
     return (
-        <div>
-            <p>HangmanDisplay</p>
+        <div style={{
+            textAlign: 'center',
+            fontSize: '2rem',
+            marginBottom: '20px'
+        }}>
+            <p>Erreurs : {errors} / {maxErrors}</p>
+            <div>
+                {/* On affiche les parties du corps selon le nombre d'erreurs */}
+                {shownParts.map((part, index) => (
+                    <span key={index}>{part}</span>
+                ))}
+            </div>
         </div>
     );
 };

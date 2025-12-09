@@ -7,9 +7,14 @@ interface LetterProps {
 
 const Letter: React.FC<LetterProps> = ({ letter }) => {
     return (
-        <div>
-            Letter
-        </div>
+        <span style={{
+            fontSize: '2rem',
+            margin: '0 5px',
+            fontFamily: 'monospace',
+            fontWeight: 'bold'
+        }}>
+            {letter.state === 'Display' ? letter.display : '_'} //si l'état est "Display", on affiche la lettre, sinon on affiche un underscore
+        </span>
     );
 };
 
