@@ -19,7 +19,7 @@ const Letter: React.FC<LetterProps> = ({ letter }) => {
             fontFamily: 'monospace',
             fontWeight: 'bold'
         }}>
-            {letter.state === 'Display' ? letter.display : '_'} //si l'état est "Display", on affiche la lettre, sinon on affiche un underscore
+            {letter.state === 'Display' ? letter.display : '_'} {/* si l'état est "Display", on affiche la lettre, sinon on affiche un underscore */}
         </span>
     );
 };

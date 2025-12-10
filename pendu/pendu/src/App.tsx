@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Game from './components/Game';
+import Keyboard from './components/Keyboard';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
         <h1>Pendu en React</h1>
       </header>
       <main>
-        <Game />
+        <Game/>
       </main>
     </React.Fragment>
   );

@@ -1,0 +1,8 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* Centre horizontalement */
+    justify-content: center;  /* Centre verticalement */
+    min-height: 100vh;        /* Prend toute la hauteur de l'écran */
+    text-align: center;       /* Centre le texte */
+}
