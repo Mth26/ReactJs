@@ -1,11 +1,17 @@
 import React from 'react';
+import { useState } from 'react';
 import { LetterState } from '../types/LetterState';
 
 interface LetterProps {
     letter: LetterState;
-}
+} 
 
 const Letter: React.FC<LetterProps> = ({ letter }) => {
+    const [word, setWord] = useState<LetterState[]>([]);
+
+    const updateWord = (newLetter: LetterState) => {
+        setWord([...word, newLetter]);
+    };
     return (
         <span style={{
             fontSize: '2rem',
