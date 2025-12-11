@@ -1,8 +1,217 @@
+/* ============================================
+   🎨 PENDU - STYLES PRINCIPAUX
+   ============================================ */
+
+/* Reset et base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 100vh;
+  color: #eee;
+}
+
+/* Container principal */
 .App {
-    display: flex;
-    flex-direction: column;
-    align-items: center;      /* Centre horizontalement */
-    justify-content: center;  /* Centre verticalement */
-    min-height: 100vh;        /* Prend toute la hauteur de l'écran */
-    text-align: center;       /* Centre le texte */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* ============================================
+   🎯 HEADER
+   ============================================ */
+.App h1 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #e94560, #f39c12, #e94560);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* ============================================
+   🎮 GAME CONTAINER
+   ============================================ */
+.game-container {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 800px;
+  width: 100%;
+}
+
+/* ============================================
+   💀 HANGMAN DISPLAY
+   ============================================ */
+.hangman-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.hangman-container .errors {
+  font-size: 1.2rem;
+  color: #e94560;
+  margin-bottom: 10px;
+}
+
+.hangman-container .parts {
+  font-size: 3rem;
+  min-height: 60px;
+}
+
+/* ============================================
+   📝 WORD DISPLAY
+   ============================================ */
+.word-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.letter {
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: "Courier New", monospace;
+  width: 50px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  border-bottom: 3px solid #e94560;
+  transition: all 0.3s ease;
+}
+
+.letter.revealed {
+  color: #4ade80;
+  border-bottom-color: #4ade80;
+  transform: scale(1.05);
+}
+
+/* ============================================
+   ⌨️ KEYBOARD
+   ============================================ */
+.keyboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.keyboard-container button {
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #2d3748, #1a202c);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.keyboard-container button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: linear-gradient(145deg, #e94560, #c73e54);
+  box-shadow: 0 6px 12px rgba(233, 69, 96, 0.4);
+}
+
+.keyboard-container button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.keyboard-container button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: scale(0.95);
+}
+
+/* ============================================
+   🔘 BOUTON NOUVELLE PARTIE
+   ============================================ */
+.reset-button {
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(145deg, #e94560, #c73e54);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+}
+
+.reset-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
+}
+
+.reset-button:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   🎉 MESSAGES DE FIN
+   ============================================ */
+.message {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 15px 30px;
+  border-radius: 10px;
+  animation: pop 0.5s ease;
+}
+
+.message.winner {
+  background: rgba(74, 222, 128, 0.2);
+  color: #4ade80;
+  border: 2px solid #4ade80;
+}
+
+.message.loser {
+  background: rgba(233, 69, 96, 0.2);
+  color: #e94560;
+  border: 2px solid #e94560;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

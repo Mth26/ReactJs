@@ -41,6 +41,15 @@ export default function Game() {
     const maxErrors = 6;
 
 
+    const isWinner = wordLetters.every(
+        (letterState) => letterState.state === 'Display'
+    );
+
+    const isLoser = errors >= maxErrors;
+
+    const isGameOver = isWinner || isLoser;
+
+
     const handleSelectLetter = (letter: string) => { // Gestion de la sélection d'une lettre
         setPlayedLetters([...playedLetters, letter]);
 
@@ -62,21 +71,31 @@ export default function Game() {
     };
 
     const resetGame = () => {
-        console.log("Nouvelle partie lancée !");
+        setWordLetters(createLetterStates(getRandomWord()));
 
+        setPlayedLetters([]);
+
+        setErrors(0);
     }
     return (
-        <div>
+        <div className="game-container">
             <HangmanDisplay errors={errors} maxErrors={maxErrors} />
 
             <WordDisplay letters={wordLetters} />
 
-            <Keyboard
-                onSelectLetter={handleSelectLetter}
-                playedLetters={playedLetters}
-            />
+            {/* Messages de fin de partie */}
+            {isWinner && <p className="message winner">🎉 Bravo, tu as gagné !</p>}
+            {isLoser && <p className="message loser">💀 Perdu ! Le mot était : {wordLetters.map(l => l.display).join('')}</p>}
 
-            <button onClick={resetGame}>Nouvelle partie</button>
+            {/* Clavier (caché si partie terminée) */}
+            {!isGameOver && (
+                <Keyboard
+                    onSelectLetter={handleSelectLetter}
+                    playedLetters={playedLetters}
+                />
+            )}
+
+            <button className="reset-button" onClick={resetGame}>Nouvelle partie</button>
         </div>
     );
 }

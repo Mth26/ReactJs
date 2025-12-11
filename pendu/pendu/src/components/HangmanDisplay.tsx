@@ -13,13 +13,9 @@ const HangmanDisplay: React.FC<HangmanProps> = ({ errors, maxErrors }) => { //re
     const shownParts = parts.slice(0, errors);
 
     return (
-        <div style={{
-            textAlign: 'center',
-            fontSize: '2rem',
-            marginBottom: '20px'
-        }}>
-            <p>Erreurs : {errors} / {maxErrors}</p>
-            <div>
+        <div className="hangman-container">
+            <p className="errors">Erreurs : {errors} / {maxErrors}</p>
+            <div className="parts">
                 {/* On affiche les parties du corps selon le nombre d'erreurs */}
                 {shownParts.map((part, index) => (
                     <span key={index}>{part}</span>

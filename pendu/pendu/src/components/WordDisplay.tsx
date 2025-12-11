@@ -8,11 +8,7 @@ interface WordDisplayProps {
 
 const WordDisplay: React.FC<WordDisplayProps> = ({ letters }) => {
     return (
-        <div style={{ 
-            display: 'flex', 
-            justifyContent: 'center',
-            marginBottom: '20px'
-        }}>
+        <div className="word-container">
             {/* On BOUCLE sur chaque lettre et on RÉUTILISE le composant Letter */}
             {letters.map((letter, index) => (
                 <Letter key={index} letter={letter} />
