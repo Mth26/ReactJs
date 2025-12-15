@@ -1,10 +1,12 @@
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Keyboard from "./Keyboard";
 import WordDisplay from "./WordDisplay";
 import HangmanDisplay from "./HangmanDisplay";
+import Timer, { calculateScore } from "./Timer";
 import { LetterState } from "../types/LetterState";
 import frenchWords from "an-array-of-french-words";
+import { removeAccents } from "../utils/accentUtils";
 
 
 const getRandomWord = (): string => { // Fonction pour obtenir un mot aléatoire depuis la liste
@@ -40,6 +42,12 @@ export default function Game() {
     const [errors, setErrors] = useState<number>(0);
     const maxErrors = 6;
 
+    const [elapsedTime, setElapsedTime] = useState<number>(0);
+
+    const handleTimeUpdate = useCallback((time: number) => {
+        setElapsedTime(time);
+    }, []);
+
 
     const isWinner = wordLetters.every(
         (letterState) => letterState.state === 'Display'
@@ -50,16 +58,16 @@ export default function Game() {
     const isGameOver = isWinner || isLoser;
 
 
-    const handleSelectLetter = (letter: string) => { // Gestion de la sélection d'une lettre
+    const handleSelectLetter = (letter: string) => {
         setPlayedLetters([...playedLetters, letter]);
 
         const isLetterInWord = wordLetters.some(
-            (letterState) => letterState.display === letter
+            (letterState) => removeAccents(letterState.display) === letter
         );
 
         if (isLetterInWord) {
             const newWordLetters = wordLetters.map((letterState) => {
-                if (letterState.display === letter) {
+                if (removeAccents(letterState.display) === letter) {
                     return { ...letterState, state: 'Display' as const };
                 }
                 return letterState;
@@ -72,22 +80,44 @@ export default function Game() {
 
     const resetGame = () => {
         setWordLetters(createLetterStates(getRandomWord()));
-
         setPlayedLetters([]);
-
         setErrors(0);
+        setElapsedTime(0);
     }
+
+    const finalScore = isWinner ? calculateScore(elapsedTime, errors, wordLetters.length) : 0;
+
     return (
         <div className="game-container">
-            <HangmanDisplay errors={errors} maxErrors={maxErrors} />
+            <div className="game-header">
+                <Timer isRunning={!isGameOver} onTimeUpdate={handleTimeUpdate} />
+                <HangmanDisplay errors={errors} maxErrors={maxErrors} />
+            </div>
 
             <WordDisplay letters={wordLetters} />
 
-            {/* Messages de fin de partie */}
-            {isWinner && <p className="message winner">🎉 Bravo, tu as gagné !</p>}
-            {isLoser && <p className="message loser">💀 Perdu ! Le mot était : {wordLetters.map(l => l.display).join('')}</p>}
+            {isWinner && (
+                <div className="end-game-container">
+                    <p className="message winner">🎉 Bravo ! !</p>
+                    <div className="score-display">
+                        <span className="score-label">Score</span>
+                        <span className="score-value">{finalScore}</span>
+                        <span className="score-details">
+                            ⏱️ {elapsedTime}s | ❌ {errors} erreur{errors > 1 ? 's' : ''}
+                        </span>
+                    </div>
+                </div>
+            )}
+            {isLoser && (
+                <div className="end-game-container">
+                    <p className="message loser">💀 Perdu ! Le mot était : {wordLetters.map(l => l.display).join('')}</p>
+                    <div className="score-display loser">
+                        <span className="score-label">Score</span>
+                        <span className="score-value">0</span>
+                    </div>
+                </div>
+            )}
 
-            {/* Clavier (caché si partie terminée) */}
             {!isGameOver && (
                 <Keyboard
                     onSelectLetter={handleSelectLetter}
